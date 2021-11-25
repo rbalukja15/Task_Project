@@ -1,17 +1,31 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import {createConnection, getRepository} from "typeorm";
 const express = require("express");
+import * as bodyParser from "body-parser";
+import { User } from "./entity/User";
 
 const app = express();
 
+app.use(bodyParser.json({limit: "200mb"}));
+app.use(bodyParser.urlencoded({limit: "200mb", extended: true}));
+
 createConnection().then(async connection => {
-    app.get('/', (req, res) => {
-        res.send({ route: 'home' })
-        console.log('home route')
+
+    app.get('/', async (req, res) => {
+        const repository = getRepository(User);
+        const users = await repository.find();
+        res.send({ users })
+        console.log(users)
     });
 
-    app.post('/', (req, res) => {
-        res.send({ route: 'home', data: 'our data' });
+    app.post('/', async (req, res) => {
+        console.log(req.body)
+        const repository = getRepository(User);
+        await repository.insert({
+            ...req.body
+        })
+
+        res.status(200).send({ message: 'Success'});
     });
 
     app.patch('/', (req,res) => {
@@ -19,7 +33,8 @@ createConnection().then(async connection => {
     })
 
     app.put('/', (req, res) => {
-        res.send({ route: 'home', data: 'this is put req' })
+        console.log(req.body)
+        // res.send({ route: 'home', data: 'this is put req' })
     })
 
     app.delete('/', (req, res) => {
