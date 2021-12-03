@@ -7,7 +7,7 @@ export class UserController {
         try {
             const repository = getRepository(UserEntity);
             const users = await repository.find();
-            response.send({ users })
+            return response.send({ users })
         } catch (e) {
             console.log(e)
             return response.send({ status: 500, message: `Server error`});
@@ -21,7 +21,7 @@ export class UserController {
                 ...request.body
             })
 
-            response.status(200).send({ message: 'Success'});
+            return response.status(200).send({ message: 'Success'});
         } catch (e) {
             console.log(e)
             return response.send({ status: 500, message: `Server error`});
