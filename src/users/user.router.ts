@@ -1,14 +1,11 @@
 import * as express from 'express';
 import {getRepository} from "typeorm";
 import {UserEntity} from "./entity/user.entity";
+import {UserController} from "./controllers/user.controller";
 
 export class UserRouter {
     public static configRoutes = (app: express.Application): void => {
-        app.get('/users', async (req, res) => {
-            const repository = getRepository(UserEntity);
-            const users = await repository.find();
-            res.send({ users })
-        });
+        app.get('/users', [UserController.getUsers]);
 
         app.post('/users', async (req, res) => {
             const repository = getRepository(UserEntity);
