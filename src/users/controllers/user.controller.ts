@@ -1,12 +1,12 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {UserEntity} from "../entity/user.entity";
+import {UserService} from "../services/user.service";
 
 export class UserController {
     public static getUsers = async (request: Request, response: Response) => {
         try {
-            const repository = getRepository(UserEntity);
-            const users = await repository.find();
+            const users = await UserService.getUsers(request, response);
             return response.send({ users })
         } catch (e) {
             console.log(e)
