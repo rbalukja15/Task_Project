@@ -1,9 +1,9 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Common} from "./common";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Common} from "../../entity/common";
 
 // tslint:disable:variable-name
 @Entity("user")
-export class User extends Common {
+export class UserEntity extends Common {
 
     @PrimaryGeneratedColumn({
         name: "id",
