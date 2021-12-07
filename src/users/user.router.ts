@@ -8,9 +8,17 @@ export class UserRouter {
 
         app.post('/users', [ValidateMiddleware.validateInput, UserController.insertUser]);
 
-        app.patch('/users/:userId', [UserController.updateUsername])
+        app.patch('/users/:userId', [
+            ValidateMiddleware.checkForExistence,
+            ValidateMiddleware.validateUsernameUpdate,
+            UserController.updateUsername
+        ])
 
-        app.put('/users/:userId', [UserController.updateUser])
+        app.put('/users/:userId', [
+            ValidateMiddleware.checkForExistence,
+            ValidateMiddleware.validateInput,
+            UserController.updateUser
+        ]);
 
         app.delete('/users', [UserController.deleteUser])
     }

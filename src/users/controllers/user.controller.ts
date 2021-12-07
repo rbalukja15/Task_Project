@@ -33,13 +33,9 @@ export class UserController {
             } else {
                 const repository = getRepository(UserEntity);
                 const user = await repository.findOne({ id: userId });
-                if (!user) {
-                    return response.send({ status: 404, message: `User with id ${userId} not found`});
-                } else {
-                    const savedRes = await repository.merge(user, request.body);
-                    await repository.save(savedRes);
-                    return response.send({ status: 200, message: `User with id ${userId} saved successfully`});
-                }
+                const savedRes = await repository.merge(user, request.body);
+                await repository.save(savedRes);
+                return response.send({ status: 200, message: `User with id ${userId} saved successfully`});
             }
         } catch (error) {
             console.log(error)
