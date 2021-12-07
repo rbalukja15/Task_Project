@@ -6,7 +6,7 @@ import {UserService} from "../services/user.service";
 export class UserController {
     public static getUsers = async (request: Request, response: Response) => {
         try {
-            const users = await UserService.getUsers(request, response);
+            const users = await UserService.getUsers();
             return response.send({ users })
         } catch (e) {
             console.log(e)
@@ -16,12 +16,8 @@ export class UserController {
 
     public static insertUser = async (request: Request, response: Response) => {
         try {
-            const repository = getRepository(UserEntity);
-            await repository.insert({
-                ...request.body
-            })
-
-            return response.status(200).send({ message: 'Success'});
+            const user = await UserService.insertUser(request);
+            return response.status(200).send({ message: 'Success', user });
         } catch (e) {
             console.log(e)
             return response.send({ status: 500, message: `Server error`});
