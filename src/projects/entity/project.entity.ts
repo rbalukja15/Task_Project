@@ -16,7 +16,7 @@ export class ProjectEntity extends Common {
         name: "title",
         nullable: false,
     })
-    public name: string;
+    public title: string;
 
     @Column("text", {
         name: "description",
