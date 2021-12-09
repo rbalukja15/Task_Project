@@ -7,8 +7,8 @@ import {UserProjectService} from "../services/user.project.service";
 export class UserProjectController {
     public static getUserProjects = async (request: Request, response: Response) => {
         try {
-            const users = await UserProjectService.getUserProjects(request);
-            return response.send({ users })
+            const user_projects = await UserProjectService.getUserProjects(request);
+            return response.send({ users_projects:  user_projects.map(user_project => user_project.toObjectResponse())})
         } catch (e) {
             console.log(e)
             return response.send({ status: 500, message: `Server error`});
@@ -17,7 +17,7 @@ export class UserProjectController {
 
     public static insertUserProject = async (request: Request, response: Response) => {
         try {
-            const user = await UserService.insertUser(request);
+            const user = await UserProjectService.insertUserProject(request);
             return response.status(200).send({ message: 'Success', user });
         } catch (e) {
             console.log(e)

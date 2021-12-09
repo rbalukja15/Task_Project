@@ -6,11 +6,14 @@ import {UserProjectEntity} from "../entity/user.project.entity";
 export class UserProjectService {
     public static getUserProjects = async (request: Request) => {
         const repository = getRepository(UserProjectEntity);
-        return await repository.find({ user_id: +request.params.userId });
+        return await repository.find({
+            relations: ['user', 'project'],
+            where: `user_id=${+request.params.userId}`
+        });
     }
 
     public static insertUserProject = async (request: Request) => {
-        const repository = getRepository(UserEntity);
+        const repository = getRepository(UserProjectEntity);
         const user = repository.create({
             ...request.body
         })

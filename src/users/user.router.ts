@@ -25,5 +25,6 @@ export class UserRouter {
 
         // User project routes
         app.get('/users/:userId/projects', [UserProjectController.getUserProjects])
+        app.post('/user-project', [UserProjectController.insertUserProject])
     }
 }

@@ -29,4 +29,12 @@ export class UserProjectEntity extends Common {
     @ManyToOne(() => ProjectEntity,{ onDelete: 'CASCADE' })
     @JoinColumn({ name: 'project_id' })
     public project: ProjectEntity;
+
+    public toObjectResponse = () => {
+        return {
+            id: this.id,
+            description: this.project.description,
+            username: this.user.username
+        }
+    }
 }
