@@ -1,6 +1,7 @@
 import * as express from 'express';
 import {UserController} from "./controllers/user.controller";
 import {ValidateMiddleware} from "./middlewares/validate.middleware";
+import {UserProjectController} from "./controllers/user.project.controller";
 
 export class UserRouter {
     public static configRoutes = (app: express.Application): void => {
@@ -21,5 +22,8 @@ export class UserRouter {
         ]);
 
         app.delete('/users', [UserController.deleteUser])
+
+        // User project routes
+        app.get('/users/:userId/projects', [UserProjectController.getUserProjects])
     }
 }
