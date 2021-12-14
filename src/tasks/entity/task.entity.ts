@@ -1,10 +1,8 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 import {Common} from "../../entity/common";
-import {ProjectTaskEntity} from "./project.task.entity";
 
-// tslint:disable:variable-name
-@Entity("project")
-export class ProjectEntity extends Common {
+@Entity("task")
+export class TaskEntity extends Common {
 
     @PrimaryGeneratedColumn({
         name: "id",
@@ -31,7 +29,10 @@ export class ProjectEntity extends Common {
     })
     public duration: number;
 
-    @OneToMany(() => ProjectTaskEntity,
-        (projectTaskEntity) => projectTaskEntity.project_id)
-    public project_tasks: ProjectTaskEntity[];
+    @Column("tinyint", {
+        name: "is_complete",
+        nullable: true,
+        default: 0,
+    })
+    public is_complete: boolean;
 }
