@@ -10,9 +10,17 @@ export class TaskService {
 
     public static insertTask = async (request: Request) => {
         const repository = getRepository(TaskEntity);
-        const project = repository.create({
+        const task = repository.create({
             ...request.body
         })
+
+        return await repository.save(task);
+    }
+
+    public static completeTask = async (request: Request) => {
+        const repository = getRepository(TaskEntity);
+        const currentTask = await repository.findOne({ id: +request.params.taskId });
+        const project = repository.merge(currentTask, ...request.body);
 
         return await repository.save(project);
     }

@@ -21,10 +21,10 @@ export class ValidateMiddleware {
     }
 
     public static checkForExistence = async (request: Request, response: Response, next: NextFunction) => {
-        const userId = +request.params.id;
+        const taskId = +request.params.taskId;
         try {
             const repository = getRepository(TaskEntity);
-            const project = await repository.findOne({ id: userId });
+            const project = await repository.findOne({ id: taskId });
 
             if (!project) {
                 return response.send({ status: 404, message: 'Task not found' });

@@ -22,6 +22,16 @@ export class TaskController {
         }
     }
 
+    public static completeTask = async (request: Request, response: Response) => {
+        try {
+            await TaskService.completeTask(request);
+            return response.send({ status: 204, message: `Task completed successfully`})
+        } catch (e) {
+            console.log(e)
+            return response.send({ status: 500, message: `Server error`});
+        }
+    }
+
     // public static updateProject = async (request: Request, response: Response) => {
     //     const userId = +request.params.userId;
     //

@@ -8,11 +8,11 @@ export class TaskRouter {
 
         app.post('/task', [ValidateMiddleware.validateInput, TaskController.insertTask]);
 
-        // app.patch('/projects/:projectId', [
-        //     ValidateMiddleware.checkForExistence,
-        //     ValidateMiddleware.validateUsernameUpdate,
-        //     UserController.updateUsername
-        // ])
+        app.patch('/tasks/:taskId', [
+            ValidateMiddleware.checkForExistence,
+            ValidateMiddleware.validateCompletedUpdate,
+            TaskController.completeTask
+        ])
         //
         // app.put('/projects/:projectId', [
         //     ValidateMiddleware.checkForExistence,
