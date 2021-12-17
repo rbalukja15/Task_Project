@@ -20,8 +20,8 @@ export class TaskService {
     public static completeTask = async (request: Request) => {
         const repository = getRepository(TaskEntity);
         const currentTask = await repository.findOne({ id: +request.params.taskId });
-        const project = repository.merge(currentTask, ...request.body);
+        currentTask.is_complete = request.body.is_complete;
 
-        return await repository.save(project);
+        return await repository.save(currentTask);
     }
 }
